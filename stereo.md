@@ -23,7 +23,7 @@ Gerçek dünyada p noktasının üzerinde düşecek sonsuz tane nokta var! Bu no
 
 # İşte Stereo!
 
-![Why Stereo Vision](assets/stereo-why-stereo-vision.png)
+![Why Stereo Vision](assets/stereo-why-stereo-vision-1.png)
 
 Üçgenleme yöntemi ile çözüyoruz. Haritacılar bu işle çok uğraşıyorlar.
 
@@ -74,15 +74,15 @@ Burada birbirine denk gelen noktada `y`'ler aynı `x`'ler farklı;
 
 ### Sol kamera
 
-![Stereo Disparity](assets/stereo-disparity-left-camera.png)
+![Left Camera Stereo Disparity](https://render.githubusercontent.com/render/math?math=x_l%3Df%5Cfrac%7BX%7D%7BZ%7D%0A%5Cquad%5Ctext%7Band%7D%5Cquad%0Ay_l%3Df%5Cfrac%7BY%7D%7BZ%7D)
 
 ### Sağ kamera
 
-![Stereo Disparity](assets/stereo-disparity-right-camera.png)
+![Right Camera Stereo Disparity](https://render.githubusercontent.com/render/math?math=x_r%3Df%5Cfrac%7BX-T_x%7D%7BZ%7D%0A%5Cquad%5Ctext%7Band%7D%5Cquad%0Ay_r%3Df%5Cfrac%7BY%7D%7BZ%7D)
 
 ### Stereo Disparity
 
-![Stereo Disparity](assets/stereo-disparity-formula.png)
+![Stereo Disparity](https://render.githubusercontent.com/render/math?math=d%3Dx_l-x_r%3Df%5Cfrac%7BX%7D%7BZ%7D-%28f%5Cfrac%7BX%7D%7BZ%7D-f%5Cfrac%7BT_x%7D%7BZ%7D%29)
 
 ![Stereo Disparity](assets/stereo-disparity-short-formula.png)
 
@@ -100,11 +100,12 @@ Bu seferde `d`'yi büyütelim. `d`'yi ne kadar büyütürsek `Z` o kadar küçü
 
 `d` her zaman için sıfır olacak. `Tx` sıfır olduğu durumda derinlikten bahsedemeyiz. Derinlik için `Tx (baseline)` olması lazım, yoksa derinlik bulunmaz.
 
-Mesela bazı hayvanlarda `central projection` aynı yerde, yani iki gözde aynı yerde. Aynı yerde olunca derinliği bulamayız.
+Mesela bazı hayvanlarda `central projection` aynı yerde, yani iki gözde de aynı yerde. Aynı yerde olunca derinliği bulamayız.
 
 Eğer elde ettiğimiz görüntüleri birleştirip bir panoroma oluşturacaksak o zaman `Tx=0` olması lazım. Derinlikle alakalı yok. Derinlik olursa dikiş yapamıyoruz. Tam üst üste oturmuyor.
 
-`Yr` ve `Yl` arasındaki farkın sıfır çıkmasının sebebi nedir? \
+> Soru: `Y_right` ve `Y_left` arasındaki farkın sıfır çıkmasının sebebi nedir?
+
 Sebebi kamerayı sadece x ekseninde hareket ettirdik.
 
 Kamerayı y ekseninde de hareket ettirirsek orada da fark elde ederiz.
@@ -117,9 +118,9 @@ Yani `x`, `y`'e değişebilir ancak `disparity` sadece bir doğru üzerinde oluy
 
 > Derinlik ve `stereo disparity` ters orantılıdır.
 
-İnsanda `Tx=63mm`, `Tx` değeri diğer değerlerle uyumlu ise sorun yok. 
+İnsanda `Tx` yaşlaşık `63mm` ve `Tx` değeri diğer değerlerle uyumlu ise sorun yok. 
 
-`f`'yi ihmal edelim.
+Şimdi bir düşülelim. `f`'yi ihmal ettiğimizi varsayalım ve aşağıdaki gibi değerlerimiz olsun.
 
 Örneğin:
 
@@ -133,7 +134,7 @@ d4=63/15,000
 
 `d3` ve `d4` yaklaşık 0 pixel!
 
-`Z` ile `Tx` birbirine benzeye sayılarsa stereo işe yarıyor. `Z` **çok büyük** sayılarsa işe yaramıyor.
+`Z` ile `Tx` birbirine benzeyen sayılarsa stereo işe yarıyor. `Z` **çok büyük** sayılarsa işe yaramıyor.
 
 Bu durumda insan 1.2 metre sonra çokta derinlik alamıyor. Peki insan derinlik algısını nasıl alıyor?
 `Occlusion`'lardan alıyor, cisimlerin büyüklüklerinden alıyoruz, `vanishing point`'lerden alıyoruz.
@@ -143,9 +144,9 @@ Bu durumda insan 1.2 metre sonra çokta derinlik alamıyor. Peki insan derinlik 
 
 ![Epipolar Geometry](assets/stereo-epipolar-geometry.png)
 
-`P` noktasının yerini değiştirdiğimizde
+`P` noktasının yerini değiştirdiğimizde:
 
-`ep` ve `e'p'` doğruları yer değişecek ancak `e` ve `e'` değişmeyecek, neden?
+> Soru: `ep` ve `e'p'` doğruları yer değişecek ancak `e` ve `e'` değişmeyecek, neden?
 
 Cevap: `Baseline` olduğu için sadece kameralar yer değiştirince değişir.
 
@@ -153,26 +154,25 @@ Cevap: `Baseline` olduğu için sadece kameralar yer değiştirince değişir.
 `e` ve `e'` epipoldür.
 `l` ve `l'` ise epipolar lines.
 
-![Transation](https://render.githubusercontent.com/render/math?math=%5Cvec%7BOp%7D.%5B%5Cvec%7BOO%27%7Dx%5Cvec%7BO%27p%27%7D%5D%3D0)
+![Transition](https://render.githubusercontent.com/render/math?math=%5Cvec%7BOp%7D.%5B%5Cvec%7BOO%27%7Dx%5Cvec%7BO%27p%27%7D%5D%3D0)
 
-`Transation` iki kamera arasındaki uzaklık.
+`Transition` iki kamera arasındaki uzaklık.
 
-İki kamera arasında `T` var. Birde `R` yani `rotation` var. `Rotation`'u da işin içine koymamız gerekiyor.
+İki kamera arasında `T` yani `transition` var ve `R` yani `rotation` var. Bu sebeple sadece `transition` değil `rotation`'u da işin içine koymamız gerekiyor.
 
-![Vector Op](https://render.githubusercontent.com/render/math?math=%5Cvec%7BO'p'%7D) vektörünü ![Vector Op](https://render.githubusercontent.com/render/math?math=%5Cvec%7BOp%7D) koordinat sistemi cinsinden açıklamak için elimdeki `p'`'nü rotate etmek gerekir.
+![Vector Op](https://render.githubusercontent.com/render/math?math=\vec{O'p'}) vektörünü ![Vector Op](https://render.githubusercontent.com/render/math?math=\vec{Op}) koordinat sistemi cinsinden açıklamak için elimdeki `p'`'nü rotate etmek gerekir.
 
-![p.[tx (Rp')]](https://render.githubusercontent.com/render/math?math=p.%5Btx%28Rp%27%29%5D)
+![p.[tx (Rp')]](https://render.githubusercontent.com/render/math?math=p.[tx(Rp')])
 
 Burada rotation matrisi 3x3 matrisdir.
 
-> Hatırlatmak isterim ki 12 bilinmeyeni olan `projection matrisi` idi.
+> Hatırlatmak isterim ki 12 bilinmeyeni olan matrix `projection matrix` idi.
 
-Rotation marrisi içinde 9 sayı var ancak içerisinde 3 bilinmeyen var. x, y, ve z etrafında dönme.
+Rotation matrix içinde **9** sayı var ancak içerisinde **3** bilinmeyen var. x, y, ve z etrafında dönme.
 
-`Rp'` ifadesinde `R` 3x3 rotation matris ve `p` ise 3'lük vektör.
+`Rp'` ifadesinde, `R` 3x3 rotation matrix ve `p` ise 3'lük vektör.
 
-#### Soru:
-3x3 matris ve 3'lük vectör çarpımı ne olur?
+> **Soru**: 3x3 matris ve 3'lük vectör çarpımı ne olur?
 #### Cevap:
 Yukarıdaki ifadeye bakacak olursak `Rp'` 3'lük vectör gelir. `t` ile `Rp'` kartezyen çarpımından 3'lük vectör gelir. Son olarak `p` 3'lük vectördür ve önceki ifade ile çarpımından dan gelen 3'lük vectör ile **dot product** yapılırsa sonuç *skaler* olur.
 
@@ -182,21 +182,18 @@ Yukarıdaki ifadenin 0 olması gerekiyor.
 
 Eğer birisi bize iki görüntü verip `t` ve `R` değerlerini de biliyorsak sonuç 0 olmalı.
 
-> `p`, `t`, `R` değerlerini biliyoruz `p'` bulabilir miyiz?
+> **Soru:** `p`, `t`, `R` değerlerini biliyoruz `p'` bulabilir miyiz?
 
-Bunu matematiksel olarak düşündüğümüzde `p`, `t`, `R` verilmişse `p'` bulabilmem lazım. Yapacağımız tek şey onları çarpıp tersini alıp karşı tarafa geçirmek.
+Bunu matematiksel olarak düşündüğümüzde `p`, `t`, `R` verilmişse `p'` bulabilmemiz lazım. Yapacağımız tek şey onları çarpıp tersini alıp karşı tarafa geçirmek.
 
-Ancak öyle bir şey olamaz `corresponding` problemini hiç resme bakmadan çözmüş gibi bir şey olduk ancak resme bakmamız lazım.
+Ancak öyle bir şey olamaz `corresponding` problemini hiç resme bakmadan çözmüş gibi bir şey oluyoruz ancak resme bakmamız lazım.
 
-Aslında matematiksel olarakta söylediğimiz çok doğru değil çünkü `p`, `t`, `R` verildiğinde ve `p'`'nü bulduğumuzda elimizde cevap değil `p'`'nün bulunduğu doğru denklemi geçiyor. Doğrudan `p'` bulamıyoruz.
+Aslında bakılırsa matematiksel olarakta söylediğimiz çok doğru değil çünkü `p`, `t` ve `R` verildiğinde ve `p'` noktasını bulduğumuzda, bir nokta elde etmiyoruz elde ettiğimiz şey `p'` noktasının bulunduğu doğru denklemi geçiyor. Doğrudan `p'` noktasını bulamıyoruz.
 
 ![Epipolar Line Image](https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Epipolar_geometry.svg/640px-Epipolar_geometry.svg.png)
 
 Bu durumda `epipolar line` elde etmiş oluruz. `p` verilirse `p' epipolar line`, `p'` verilirse `p epipolar line` elde ederiz.
-
-`Epipolar line` bildiğimizde `epipolar line` üzerinde aramamızı yapabiliriz.
-
-Tüm bunlar için `t` ve `R` nin verilmesi lazım!
+`Epipolar line` bildiğimizde onun üzerinde aramamızı yapabiliriz. Ancak tüm bunlar için `t` ve `R` nin bilinmesi lazım!
 
 Bunu bir adım ileriye taşıyalım `t` ve `R` bize verilmese de biz bunu `t` ve `R` olmadan yapmaya çalışalım.
 
@@ -211,7 +208,7 @@ Kartezyen product bu şekilde ancak biz böyle yapmak yerinde matrix şeklinde g
 
 ![](https://render.githubusercontent.com/render/math?math=%5Ba%5D_x%3D%0A%5Cbegin%7Bbmatrix%7D%0A0%20%26%20-a_3%20%26%20a_2%5C%5C%0Aa_3%20%26%200%20%26%20-a_1%5C%5C%0A-a_2%20%26%20a_1%20%26%200%0A%5Cend%7Bbmatrix%7D)
 
-İşte `skew-symmetrix` matrix. Bu işlemin sonucu bize vektör verecek.
+İşte `skew-symmetric` matrix. Bu işlemin sonucu bize vektör verecek.
 
 ![Transation](https://render.githubusercontent.com/render/math?math=%5Cvec%7BOp%7D.%5B%5Cvec%7BOO%27%7Dx%5Cvec%7BO%27p%27%7D%5D%3D0)
 
@@ -225,7 +222,7 @@ Burada `epsilon` şeklinde gösterilen `essential matrix`.
 
 ![](https://render.githubusercontent.com/render/math?math=%5Cepsilon%3D%5Bt_x%5DR)
 
-> Skew-Symmetric matris nasıl yazılır?
+Skew-Symmetric matrisin nasıl yazıldığı aşağıda gösterilmiştir.
 
 ![Skew-Symmetric Matrix Transform](https://render.githubusercontent.com/render/math?math=%5Cbegin%7Bbmatrix%7D%0Aa_1%5C%5C%0Aa_2%5C%5C%0Aa_3%0A%5Cend%7Bbmatrix%7D%0A%3D%0A%5Cbegin%7Bbmatrix%7D%0A0%20%26%20-a_3%20%26%20a_2%5C%5C%0Aa_3%20%26%200%20%26%20-a_1%5C%5C%0A-a_2%20%26%20a_1%20%26%200%0A%5Cend%7Bbmatrix%7D)
 
@@ -250,76 +247,63 @@ işleminin sonucu ise `skaler` olacaktır.
 
 İçerisinde 9 tane sayı var ve o sayılar `R` ve `t` çarpımından oluşuyor. Bunu kamera kalibrasyonunda kullanabiliriz ama `epsilon` matrisi nasıl buluruz?
 
-> Elimizde 9 tane denklem var `p` ve `p'` nü nasıl buluruz?
+> **Bir düşünün:** Elimizde 9 tane denklem var `p` ve `p'` nü nasıl buluruz?
 
-> Cevap basit onları bilebilecek görüntüler çekebiliriz. Peki bunu nasıl yaparız. Örneğin bomboş resim ortasında bir tane siyah nokta var. İki resimde de siyah noktanın resmin ortasına geldiğini biliyoruz bu sebeple `p` ve `p'` buluruz.
+> Onları bilebilecek görüntüler çekebiliriz. Örneğin bomboş resim ortasında bir tane siyah nokta var. İki resimde de siyah noktanın resmin ortasına geldiğini biliyoruz bu sebeple `p` ve `p'` buluruz.
 
-İki resim çektik bu bize `p` ve `p'` bilinir ancek `epsilon` değerinin hala bilmiyoruz. İlk çekilen resimler bize sadece bir tane eşitlik verdi. Ortasında nokta olan o sahneyi sağa sola götürerek istediğimiz kadar denklem elde ederiz. Her çektiğimiz resim bize `epsilon` içindeki sayılar hakkında bilgi veriyor. O bilgileri yeteri kadar toplayıp alt alta koyduğumuz zaman o 9 tane noktayı bulabiliriz.
+İki resim çektik bu bize `p` ve `p'` bilinir ancak `epsilon` değerinin hala bilmiyoruz. İlk çekilen resimler bize sadece bir tane eşitlik verdi. Ortasında nokta olan o sahneyi sağa sola götürerek istediğimiz kadar denklem elde ederiz. Her çektiğimiz resim bize `epsilon` içindeki sayılar hakkında bilgi veriyor. O bilgileri yeteri kadar toplayıp alt alta koyduğumuz zaman o 9 tane noktayı bulabiliriz.
 
-İki tane kamerayı ayrı ayrı kalibrasyonunu yapmadan doğrudan `essential matrisi` buldum. `eEssential matrisi` bulduktan sonra `epipolar geometriyi` çözmüş olduk.
+İki tane kamerayı ayrı ayrı kalibrasyonunu yapmadan doğrudan `essential matrisi` buldum. `essential matrisi` bulduktan sonra `epipolar geometriyi` çözmüş olduk.
 
 Buda demek oluyorki yeni bir sahnede çektim fotoğrafı iki tane görüntü var elimde, bir tane noktayı seçtim, seçtiğim noktaya denk gelen `epipolar line` nerede ise formülde yerlerine koyduk aramamızı o doğru üzerinde yapabiliriz.
 
-`Essential matrisi` bir sayı ile çarpalım yine `essential matris`tir çünkü bulduğumuz `epsilon` matrisindeki 9 sayı, `unique` 9 tane sayı değil. benim sistemimin başka `essential matris`leride var ve onların hepsi birbirine denktir. Aralarındaki farklılık bir scaler olabilir, neden?
+`Essential matrisi` bir sayı ile çarpalım yine `essential matrix` olur çünkü bulduğumuz `epsilon` matrisindeki 9 sayı, `unique` 9 tane sayı değil. benim sistemimin başka `essential matris`leride var ve onların hepsi birbirine denktir. Aralarındaki farklılık bir scaler olabilir, neden?
 
 ![](https://render.githubusercontent.com/render/math?math=p%5ET%20%5Cepsilon%20p%27%3D0)
 
 her iki tarafı `alpha` ile çarparsak değişmez, bir `skaler` ile bağlıdır.
 
-`R` içeriside 3 tane sayı var `t` içerisinde de 3 tane sayı var ama `t` için önemli olan vektörün yönü, nerede bağladığı nerede bittiği önemli değil. Vektörün yönünüde iki tane sayı ile ifade edebilirim. Bu durumda `essential matris`de `3+2=5` tane sayı var.
+`R` içeriside 9 tane sayı var `t` içerisinde de 3 tane sayı var ama `t` için önemli olan vektörün yönü, nerede bağladığı nerede bittiği önemli değil. Vektörün yönünüde iki tane sayı ile ifade edebilirim. Bu durumda `essential matris`de `3+2=5` tane sayı var.
 
-![Ep'](https://render.githubusercontent.com/render/math?math=%5Cepsilon%20p%27) bir doğru formülü `p'` noktasının sol resim üzeride gelebileceğin yerlerin doğrusu. Tersi yani ![](https://render.githubusercontent.com/render/math?math=p%5ET%5Cepsilon)'de doğru benzer şekilde `p'` üzerinde gelebileceği yerlerin doğrusu.
+![Ep'](https://render.githubusercontent.com/render/math?math=\epsilon%20p') bir doğru formülü `p'` noktasının sol resim üzeride gelebileceğin yerlerin doğrusu. Tersi yani ![](https://render.githubusercontent.com/render/math?math=p^T\epsilon)'de doğru benzer şekilde `p'` üzerinde gelebileceği yerlerin doğrusu.
 
-![Transation](https://render.githubusercontent.com/render/math?math=%5Cvec%7BOp%7D.%5B%5Cvec%7BOO%27%7Dx%5Cvec%7BO%27p%27%7D%5D%3D0)
+![Transation](https://render.githubusercontent.com/render/math?math=\vec{Op}[\vec{OO'}x\vec{O'p'}]=0)
 
 Buradaki meseleyi tekrar edecek olursak. Aynı düzlem üzerindeki iki vektörü `cross product` yaparsak o düzleme dik başka bir vektör elde ederiz.
 
-![](https://render.githubusercontent.com/render/math?math=%5Cvec%7BV%7D%7C%5Cvec%7BY%7Dx%5Cvec%7BZ%7D%7C) burada 
-![](https://render.githubusercontent.com/render/math?math=%7C%5Cvec%7BY%7Dx%5Cvec%7BZ%7D%7C) 
+![](https://render.githubusercontent.com/render/math?math=\vec{V}|\vec{Y}x\vec{Z}|) burada 
+![](https://render.githubusercontent.com/render/math?math=|\vec{Y}x\vec{Z}|) 
 ifadesinden 
-![](https://render.githubusercontent.com/render/math?math=%5Cvec%7BA%7D) 
+![](https://render.githubusercontent.com/render/math?math=\vec{A}) 
 elde edilir. 
-![](https://render.githubusercontent.com/render/math?math=%5Cvec%7BX%7D.%5Cvec%7BA%7D) 
-ise 
-![](https://render.githubusercontent.com/render/math?math=%5Cvec%7BX%7D) 
-vektörünü 
-![](https://render.githubusercontent.com/render/math?math=%5Cvec%7BX%7D), 
-![](https://render.githubusercontent.com/render/math?math=%5Cvec%7BY%7D) 
-ve 
-![](https://render.githubusercontent.com/render/math?math=%5Cvec%7BZ%7D) 
-vektörüne dik. İfade
-![](https://render.githubusercontent.com/render/math?math=%5Cvec%7BX%7D.%5Cvec%7BA%7D)
-bu hale geldi
-![](https://render.githubusercontent.com/render/math?math=%5Cvec%7BA%7D) 
-vektörü
-![](https://render.githubusercontent.com/render/math?math=%5Cvec%7BX%7D)
-vektörüne dik olduğunu söylemiştim `dot product` yaptığımızda 0 olmalı. İşin matematiğini basitçe ele aldıktan sora yapmaya çalıştığımız `p` verildiğinde `p'` üzerinde yer aldığı doğru parçalarını bulabilelim.
+![](https://render.githubusercontent.com/render/math?math=\vec{X}.\vec{A}) ise ![](https://render.githubusercontent.com/render/math?math=\vec{X}) vektörünü ![](https://render.githubusercontent.com/render/math?math=\vec{X},\vec{Y}\text{ve}\vec{Z}), vektörüne dik. İfade ![](https://render.githubusercontent.com/render/math?math=\vec{X}.\vec{A}), bu hale geldi ![](https://render.githubusercontent.com/render/math?math=\vec{A}) vektörü ![](https://render.githubusercontent.com/render/math?math=\vec{X}) vektörüne dik olduğunu söylemiştim `dot product` yaptığımızda 0 olmalı. İşin matematiğini basitçe ele aldıktan sora yapmaya çalıştığımız `p` verildiğinde `p'` üzerinde yer aldığı doğru parçalarını bulabilelim.
 
-![](https://render.githubusercontent.com/render/math?math=p%3DK%5Chat%7Bp%7D)
+![](https://render.githubusercontent.com/render/math?math=p=K\hat{p})
 
-![](https://render.githubusercontent.com/render/math?math=p%3DK%5E%7B-1%7D%5Chat%7Bp%7D)
+![](https://render.githubusercontent.com/render/math?math=p=K^{-1}\hat{p})
 
-![](https://render.githubusercontent.com/render/math?math=p%5E%7BT%7D%5Cepsilon%20p%27%3D0)
+![](https://render.githubusercontent.com/render/math?math=p^{T}\epsilon%20p'=0)
 
-![](https://render.githubusercontent.com/render/math?math=%28K%5E%7B-1%7Dp%29%5E%7BT%7D%5Cepsilon%20K%27p%27%3D0)
+![](https://render.githubusercontent.com/render/math?math=(K^{-1}p)^{T}\epsilon%20K'p'=0)
 
-> Bu noktada ![](https://render.githubusercontent.com/render/math?math=%28K%5E%7B-1%7Dp%29%5E%7BT%7D) nedir?
+> **Soru:** Bu noktada ![](https://render.githubusercontent.com/render/math?math=(K^{-1}p)^{T}) nedir?
 
 
-> ![](https://render.githubusercontent.com/render/math?math=%28AB%29%5ET%3DB%5ET%20A%5ET)
+q![](https://render.githubusercontent.com/render/math?math=(AB)^T=B^TA^T)
+
 olduğundan
 
-![](https://render.githubusercontent.com/render/math?math=K%5ET%20p%5ET%20%5Cepsilon%20K%27p%27%20%3D%200)
+![](https://render.githubusercontent.com/render/math?math=K^Tp^2\epsilon%20K'p'=0)
 
 buradan ...
 
-![](https://render.githubusercontent.com/render/math?math=F%20%3D%20K%5E%7B-T%7D%20%5Cepsilon%20K%27%5E%7B-1%7D)
+![](https://render.githubusercontent.com/render/math?math=F=K^{-T}\epsilon%20K'^{-1})
 
 `K` sol kamera için `intristic` parametreler matrisi. `K'` sağ kamera için `intristic` parametreler matrisi.
 
 Buradaki `F` fundamental matris.
 
-yani ![](https://render.githubusercontent.com/render/math?math=p%5ET%20F%20p%27%20%3D%200) olmalı.
+yani ![](https://render.githubusercontent.com/render/math?math=p^TFp'=0) olmalı.
 
 `Essential` matris gerçek dünyadaki koordinatlarda çalışıyor ancak `fundamental` matrix image koordinatlarında çalışıyor ve bizim buna erişimimiz var.
 
@@ -368,21 +352,23 @@ Sanal iki görüntünüm varmış gibi düşünüyoruz. Tek yaptığımız şey 
 
 ## A Simple Stereo System
 
-![]()
+![NEED_IMAGE]()
 
-- `Xl` ve `Xr` arasındaki fark `disparity`.
-- `Ol` ve `Or` aras `T` yani `baseline`.
+- `X_left` ve `X_right` arasındaki fark `disparity`.
+- `O_left` ve `O_right` aras `T` yani `baseline`.
 - `Central projection` ile görüntü düzlemi arasındaki uzaklık `odak uzaklığı`.
 
 Burada amacımız `Z`'yi bulmak `Z`'yi bulmak için üçgenlerin benzerliğini kullanarak çözeriz.
 
 ![](https://render.githubusercontent.com/render/math?math=%5Cdfrac%7BT%7D%7BT-%28x_l-x_r%29%7D%0A%3D%0A%5Cdfrac%7BZ%7D%7Bz-f%7D)
 
-![](https://render.githubusercontent.com/render/math?math=Z%3Df%0A%5Cdfrac%7BT%7D%7Bx_l-x_r%7D)
+![](https://render.githubusercontent.com/render/math?math=\frac{T}{T-(x_{left}-x_{right})}=\frac{Z}{z-f})
+
+![](https://render.githubusercontent.com/render/math?math=Z=f\frac{T}{x_{left}-x_{right}})
 
 Eğer `disparity` büyük olursa `Z` küçük olur. Bunu şöyle örneklendirebiliriz. İşaret parmağımızı 4-5 cm gözlerimizin önüne getiririz. Sağ gözümüzü kapatıp sol gözümüzle bakarız sonrada tam tersi şekilde yaparız ve parmağımızın çok yer değiştirdiğini göreceğiz işte bu durum `disparity`'nin fazla olmasıdır. Benzer şekilde aynı şeyi uzaktaki cisimlere uyguladığımızda ise cisimler az yer değiştirir.
 
-![](https://render.githubusercontent.com/render/math?math=Z%3Df%5Cdfrac%7BT%7D%7Bd%7D)
+![](https://render.githubusercontent.com/render/math?math=Z=f\frac{T}{d})
 
 Burada `T` ve `f` sabit. `T`'yi değiştirmeyi deneyelim. `T`'nin değişmesi için kameraların yaklaştırılıp uzaklaştırmam lazım.
 
@@ -396,7 +382,7 @@ Açı düşük bir açı ise gözler paralelleşiyorç Göz çok uzağa *focus* 
 
 Birbirine yaklaştırdığımıza `hassasiyet` artar.
 
-![](https://render.githubusercontent.com/render/math?math=Z%3Df%5Cdfrac%7BT%7D%7Bd%7D)
+![](https://render.githubusercontent.com/render/math?math=Z=f\frac{T}{d})
 
 bu durumda `T` küçülür. `T` küçük olduğu zaman `d`'deki ufak yanılma `Z`'yi çok kötü bir şekilde etkiliyor. `T` yeteri kadar büyükse `d`'deki bir iki pixellik yanılma bizi o kadar etkilemez. Dolayısıyla kameraları olabildiği kadar uzak yapmalıyız.
 
@@ -412,12 +398,155 @@ Güzel çözümlerden bir tanesi `baseline` uzaklaştır ancak kameraları birbi
 1. ``Corresponse` bulmak çok zor oluyor. Örneğin bir küpe baktığımızı düşünelim. Kameralar çok uzak olduğunda her iki kamera kübün **farklı yanlarını** görebilir bu şekilde `correnponse` kurmak **imkansız**.
 2. `Işıklandırma` **farkından** dolayı görüntüler **çok çok farklı** olmaya başlıyor
 
-![](https://render.githubusercontent.com/render/math?math=)
+## Reconstruction
 
-![](https://render.githubusercontent.com/render/math?math=)
+> Neden construction yerine reconstruction deniliyor?
 
-![](https://render.githubusercontent.com/render/math?math=)
+Objenin her bir noktasının x ve y'si var ancak z'yi bilmiyoruz. Objeyi 3D dünyada **yeniden oluşturma** ediyoruz. Computer Vision dünyasında bu tabir çok kullanılınır. 
 
-![](https://render.githubusercontent.com/render/math?math=)
+> **Reconstract**: *2D dünyadaki bilgilerden yola çıkarak, 3D obje hakkında bilgi edinmektir.
 
-![](https://render.githubusercontent.com/render/math?math=)
+Bunu;
+- Stereo, 
+- Motion, 
+- Gölgelendirme
+- Focus
+- Bulanıklıktan
+
+etc. yapabiliriz.
+
+### imgae
+
+Gerçek dünyada `Q` noktası var. `Q` noktasının görüntüsü, sol görüntüde `q` noktasına ve sağ görüntüde `q'` noktalarına düşer. Sağ ve sol görüntüler arasında denklik sağlarken 1px kadar hata yapabiliriz. Bizi bu hata yapmaya zorlayan şeyler kamera kalibrasyonu ve görüntüdeki `noise`. Şöyle düşünelim yarım pixellik hatada da doğrular birleşmeyecek özellikle nokta çok uzakta ise. Zaten denkleştirme algorithmaları o kadar mükemmel çalışmıyor hata yapabiliyor. `R=Op` doğrusu ve `R'=O'p'` doğrusu kesişmesi gerekirken kesişmiyorlar çünkü 3D dünyada doğrular kesişmek zorunda değil. Bu iki doğrunun kesişmesi lazım ki kesiştirip gerçken dünyadaki `(x,y,z)` noktalarını bulalım. Bu durumda `R` ve `R'` birbirine bağlayacak en kısa doğruyu bulduğumuzda, bu doğrunun ortası `P` noktası olacaktır. `R` ve `R'` doğrularını birbirine bağlayacak en kısa doğru, `R` ve `R'` doğrularına dik olman doğrudur. `R` ve `R'` doğrularını bağlayan en kısa doğruyu bulmak için `R` ve `R'` vektörlerini `cross product (RxR')` yaparsam, `R` ve `R'` doğrularına **dik** yeni bir vectör elde ederiz. Sonuç olarak `Z` noktası gerçek dünyada `(x,y,z)` noktasını ifade ediyor.
+
+İki doğruyu kesiştirmek kolay değil çünkü 2D boyutlu dünyada tüm doğrular kesişmek zorunda. 2D dünyada paralellik var ancak homojen koordinat düzleminde paralel doğrularda kesişiyordu. 3D dünyada doğrular kesişmek zorunda değil.
+
+Stereo'da en az iki kamera kullanılması sonnucu aynı sahneye aynı anda iki kamera farklı açılardan bakar. Multiview Geometry birden fazla açıyla sahneye bakmak demek.
+
+
+### Reconstruction by Triangulation
+
+![IMAGE]()
+
+Ol ve Or baseline
+OlPl
+OrPr
+P
+
+Şimdi
+0P1
+olmak üzere elimizdeki dört tane vectör var.
+
+![](assets/stereo-reconstruct-equation-1ce4bef0.png)
+
+Bu durumda `a.P_left` != `b.P_right` burada `a` ve `b` katsayılarını ne seçersek seçelim kesişmeyeceklerdir. Dolayısı ile bu noktaları biraraya getiren, `P` noktasının da üzerinde bulunduğu doğruyu hesaba katmak gerekir. Tüm bunlara ek olarak `P_left` ile `P_right` farklı dünyalarda yaşamıyorlar ve aralarında transition vektörü ve rotation matrisi var.
+
+![](https://render.githubusercontent.com/render/math?math=a.P_{left}=T%2BRbR_{right})
+
+Bu durumda
+
+![](https://render.githubusercontent.com/render/math?math=a.P_{left}-bR^TP_{right}%2Bc(P_{left}xR^TP_{right})=T)
+
+Açıklarsam
+
+![](assets/stereo-reconstruct-equation-description.png)
+
+Bu şekilde 4 tane kenarı olan polygon oldu ve toplamları 0 olması lazım. Buradan `a,b` ve `c` olmak üzere 3 tane bilinmeyenimiz var ve 3 tane denklem elde edince bilinmeyenleri bulabileceğiz. 
+
+## Algebraic Contruction
+
+![](assets/stereo-algebraic.png)
+
+Yukarıdaki görsel de sol ve sağ kameralarınyla `p` noktasını bulmak için `P` noktasının ilgili kameranın matrisi (`M`) ile çarpmak yeterli çünkü kameranın tüm parametreleri var elimizde. Hatırlatmak gerekirse `M` matrisinin içerisinde 12 tane sayı vardı. Tüm bu denklemleri bir araya getirdikten sonra elimizde çözülmesi gereken bir lineer sistem oluyor ve çözdüğümüzde ise tek bilinmeyen olan `P` noktasını buluruz. Bu tekniğin güzel taraflarından birisi de üçüncü kamerayı eklediğimizde de çalışır. Stereoda sadece iki tane kamera kullanılmayabilinir ancak kamera sayısı en az iki tane olmalı.
+
+Eğer `triangulation` yöntemiyle kıyaslarsak, `triangulation` yöntemi sadece iki kamerayla çalışıyor ancak `algebraic` yönteminde istediğimiz kadar kamera kullanabiliriz. Eğer ikiden fazla kamera varsa ve `triangulation` yöntemiyle çalışmak istiyorsak iki iki gruplayıp üretilen `P` noktalarının ortasını alıp sonuca ulaşabiliriz. Stereoda tek kamera ile derinlik bilgisi alınamadığından tek kamerayı bu değerlendirmenin içine bile almıyoruz.
+
+Diyelim ki elimizde bir kamera var ve sahn sabit. Kamerayı sahnenin etrafında hareket ettiriyoruz ama kameranın hareket ettirdiğimiz noktanın yerini çok iyi biliyoruz. Bu durumda kamera her yer değiştirdiğinde yeni `extrinsic` parametreler oluşuyor ve onların ne olduklarını biliyoruz. Yani kameranın her bir pozisyonunda bize bir `M` matrisi verecek. Dolayısıyla kamerayı hareket ettirip onlarca yeni pozisyondan görüntü aldığım zamanda `reconstruction` yapabiliriz. `Reconstruction` yapabilmek için hangi noktanın hangi noktaya geldiğini bilmemizz gerekiyor.
+
+> Soru: `p=MP` işleminde `P` içerisinde dört tane sayı olan bir vektör, `M` matrisi ise 4x3 olan bir matris ve `p` içerisinde üç tane elemanı olan bir vektör. Bu durumda neden çözemiyoruz x,y,z noktasını.
+
+*Cevap: `P` homojen koordinat sisteminde yani dört boyutlu bir vektör ancak burada üç tane eşitlik var. Bu sebeple `P` noktasını bulamıyoruz sadece `P` noktasının üzerinde yer aldığı doğruyu bulabiliyoruz. `P` noktasını bulabilmek için ikinci, üçüncü veya daha fazla eşitliklere ihtiyacımız var.*
+
+Bir başka çözüm yolu ise `M·P` işleminin sonucu bir vektör. `M·P` ile `p` vektörünü cross product yaparsak sıfır çıkması lazım. Cross product işleminin özelliklerinden bir tanesi bir vektörü kendisi ile cross product yaparsak sonuö sıfır olur. 
+
+![](assets/stero-reconstruction-alternative.png)
+
+Yukarıda `p` vektörünü `skew-symmetric` hale getirerek 3x3 matris yaptık ve `M` ile çarpıp daha sonra `P` vektörü ile çarparsak sonunç sıfır yine olacaktır. Güzel tarafı `p` vektörünün `skew-symmetric` haliyle `M` matrisi bilinen, `P` ise bilinmeyendir. Bunu istediğimiz kadar alt alta getirip çözüp `P` noktasını bulabiliriz.
+
+## Rectification
+
+Görüntüleri rotate edip ki aynı `conjugated epipolar doğruları` diğer görüntü üzerinde aynı satır ve sütunda denk gelmiş olsun. Eğer görüntüyü bu hale getirirsek `p·F` yapıp diğer görüntü üzerinde doğru elde etmeye gerek kalmayacak çünkü `rectified` edilmiş görüntülerde aynı doğru üzerine aynı satır ve sütun olacak. Bunu `fundamental matris` bulunduktan sonra arama işlemini basitleştirmeye yarar.
+
+İki kameradan görüntü aldık. Görüntülerden yola çıkarak öyle iki tane sanal görüntü oluşturalım ki, yeni oluşturduğumuz iki tane görüntünün `epipolar` doğruları birbirine paralel ve aynı satırda olsun. Zaten gerçek kameralardan bakıldığında `conjugated epipolar doğrular` birbirine paralel değil.
+
+## Finding Correspondences
+
+Öncelikle görüntü `rectified` edildiğinden tüm resme bakmak zorunda değiliz sadece ilgili doğru üzerinde arama yapmamız yeterli olacak. Düşünelin aksine pixel pixel karşılaştırmayacağız bölge bölge karşılaştıracağız. Sol görüntüdeki doğrunun üzerindeki pencereye denk gelen sağ görüntüdeki hangisidir sorusunun cevabının arayacağız. 
+
+Bu pencereleri karşılaştırılan yöntemlerden bazıları:
+
+![Maximum](assets/stereo-find-correspondences-eq1.png)
+
+Pencelere içindeki tüm pixelleri birbirinden çıkar ve farkın en büyük olduğunu seç. Ancak biraz karamsar bir algoritma. Benzerliğin çok olmasını farkın az olmasından anlıyor. İki pencere birbirinin tıpatıp aynısı ise sıfır çıkması lazım ancak bir pixelde hata varsa benzerlik az.
+
+![SAD](assets/stereo-find-correspondences-sad.png)
+
+Sum of Absolute Differences `(SAD)`: İki pencere arasındaki tüm pixellerin değerlerini çıkar sonra topla. İki pencere birbirinin tıpa tıp aynısı ise sıfır çıkması gerekiyor. Ufak tefek farklılıklar varsa o farklılıkların toplamı yani.
+
+![SSD](assets/stereo-find-correspondences-ssd.png)
+
+Sum of Square Distances `SSD`: İki pencere arasındaki farkların karelerinin topluyoruz.
+
+> Soru: Doğru üzerindeki en mükemmel bölgeyi arıyoruz. Eğer en mükemmel olan varsa `SSA` ve `SSD` yöntemleride bulucak. Peki bu algoritmaların farklılığı nedir? Düşünün.
+
+Cevap: SAD farkın çok olmasına kızmıyor ancak SSD fark yükseldiği zaman çok kızıyor. SSD yöntemi genelde daha başarılı sonuçlar sağlıyor.
+
+![Cfg](assets/stereo-find-correspondences-cfg.png)
+
+`Cross Correlation`: İki penceredeki pixeller bire bire çarpılıp toplanmasıyla elde ediliyor. Sonuç ne kadar büyük olursa benzerlik o kadar fazla oluyor.
+
+Aşağıda SSD ile Cross Correlation arasındaki benzerliği inceleyelim.
+
+![SSD-CC](assets/stereo-find-correspondences-prove1.png)
+
+`SSD` yöntemini açarsak, aslında `SSD` içerisinde her bir pixelin çarpımı (`cross-correlation`) var. Bu çarpım negatif olduğu için, `SSD` küçük olabilmesi için çarpımın büyük olması gerekmekte.
+
+> `Dense Disparity`: Her bir pixele denklik durumuna göre büyüksün küçüksün atamaya deniliyor.
+
+### Normalize Cross Correlation
+
+![NEED_IMAGE]()
+
+İki vektör arasındaki uzaklığı hesaplarız veya iki vektörü dot product yaparız.
+
+> Hatırlatma: İki vektör birbirine dik ise `dot product` yapınca sonuç sıfır olur. İki vektör aynı yönde ise olabildiği kadar büyük bir sayı verir. *Sonuç* olarak `dot product` iki vektör arasındaki *`kosinüs`* verir.
+
+Bu yöntemde normalizasyon yapmak için her bir elemanı vektörün boyutna bölüyoruz sonra iki vektör arasında dot product yaparız. 
+Sonuç 1.0 ise paraleldir, *0* ise birbirine dik, -1 ise vektörler olabildiğince birbirine zıt demektir.
+
+![ZNCC](assets/stereo-find-correspondences-zncc.png)
+
+En güzel sonuçları `normalize cross correlation` üretiyor ancak maliyetli. Ürettiği sonuçlar `+1` ve `-1` arasında çünkü `kosinüs` bu aralıkla değerler üretiyor. Normalizasyon yaptığı için **gürültüden** ve **parlaklık değişiminden** çok fazla etkilenmiyor. 
+
+Dense disparity yönetimdeki bir başka problem ise aşağıda görüldüğü üzere flat bölgeleri flat olan çok fazla yerle eşleyecek olması.
+
+![DISPARITY_PROBLEM]()
+
+## Feature-Based Methods
+
+Her bir pixel için disparity bulmaya çalışmayıp sadece **özelleşmiş** noktalar için disparity bulma esasına dayanır. Sağ görüntüde ve sol görüntüde kenarları bulalım. Sol görüntüdeki bir kenar için sağ görüntüde ona en çok benzeyeni arayalım. İki kenarın benzerliği bulmak lazım. Biliyorum ki bir kenarın `magnitude` ve `açısı` var orada bulunabilir veya kenarın bulunduğu bölgedeki pixel değerlerine bakılabilir. Bir başka yaklaşım `corner`lara bakabiliriz.
+
+`Feature-based` yaklaşımın `dense disparity` methoduna göre dezavantajı her bir pixel için `disparity` hesaplanmıyor. Ancak bu eğer robot navigasyonu yapacaksak gayet yeterli bir yaklaşım çünkü robot önündeki engele çarpmasın istiyoruz bu sebeple her bir nokta için `reconstruction` yapmaya gerek olmuyor böyle durumlar için.
+
+## Multiscale Edge Match
+
+1. Rectified olan görüntüleri `sigma1` < `sigma2` < `sigma3` < `sigma4` olan penceleri `convolution`a sokalım ve elimizde dört farklı görüntü olsun. Sigma büyüdükçe büyüt detaylar, sigmanın küçük olması ise küçük detaylar ile alakalıdır.
+2. Her bir görüntüde `zero-crossing of the Laplacian` yöntemi ile edgelerin yerlerini bul.
+3. Önce büyük ölçete olanları al ve bunları match et.
+4. Önce genel yapıyı özelleştirip sonra özelleşmiş yapıyı eşleştirir.
+
+## Ordering Constraint
+
+![Ordering Constraint](assets/stereo-ordering-contraint.png)
+
+Aynı yüzeyindeki noktaların sıralamaları değişmiyor. 
