@@ -31,7 +31,7 @@ Gerçek dünyada p noktasının üzerinde düşecek sonsuz tane nokta var! Bu no
 ### Vanishing Point:
 Paralel giden paralellerin perspektifte birleştiği nokta.
 
-## Julesz Random-Dot Experiment
+## Julesz Random-Dot Experiment *(not complete)*
 Cisimleri algılarken:
 - Vanishing point
 - Perspektif
@@ -543,7 +543,7 @@ Her bir pixel için disparity bulmaya çalışmayıp sadece **özelleşmiş** no
 3. Önce büyük ölçete olanları al ve bunları match et.
 4. Önce genel yapıyı özelleştirip sonra özelleşmiş yapıyı eşleştirir.
 
-## Ordering Constraint
+## Ordering Constraint *(not complete)*
 
 ![Ordering Constraint](assets/stereo-ordering-contraint.png)
 
