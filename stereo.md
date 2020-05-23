@@ -1,10 +1,8 @@
-Farklı açıdan çekilmiş iki fotoğraf lazım.
+# Stereo
 
-Aynı eksen etrafında döndürülmüş olması da gerekiyor.
+Stereo için farklı açıdan çekilmiş en az iki fotoğraf olmak kaydıyla 3D bilgilerin çıkarılmasıdır. Sahneyi farklı noktalardan çekerek elde edilen bilgileri karşılaştırarak 3D bilgiler elde edilebilir.
 
-Farklı noktalardan çekilmiş olması lazım. Bu farklı pozisyonlar insanın iki gözüne denk geliyor.
-
-### Disparity
+## Disparity
 Farklı yerden çekilmiş iki fotoğrafta aynı noktaların farklı yerlerde olmasına `disparity` deniliyor.
 
 Her bir noktanın diğer görüntüdeki dengini bulsak ve aralarındaki dengini çıkarsak noktayla arasındaki bulalım. Her pixel için elimize bir tane sayı geçecek. O sayıdan oluşan görüntü oluşturursam o zaman `disparity` resmini elde ederim. `Disparity`'de pixel ne kadar parlaksa o kadar yakındır.
