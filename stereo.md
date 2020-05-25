@@ -483,15 +483,15 @@ Görüntüleri rotate edip ki aynı `conjugated epipolar doğruları` diğer gö
 
 Bu pencereleri karşılaştırılan yöntemlerden bazıları:
 
-![Maximum](assets/stereo-find-correspondences-eq1.png)
+<img src="assets/stereo-find-correspondences-eq1.png" alt="Maximum Algorithm" width="300" />
 
 Pencelere içindeki tüm pixelleri birbirinden çıkar ve farkın en büyük olduğunu seç. Ancak biraz karamsar bir algoritma. Benzerliğin çok olmasını farkın az olmasından anlıyor. İki pencere birbirinin tıpatıp aynısı ise sıfır çıkması lazım ancak bir pixelde hata varsa benzerlik az.
 
-![SAD](assets/stereo-find-correspondences-sad.png)
+<img src="assets/stereo-find-correspondences-sad.png" alt="SAD Algorithm" width="300" />
 
 Sum of Absolute Differences `(SAD)`: İki pencere arasındaki tüm pixellerin değerlerini çıkar sonra topla. İki pencere birbirinin tıpa tıp aynısı ise sıfır çıkması gerekiyor. Ufak tefek farklılıklar varsa o farklılıkların toplamı yani.
 
-![SSD](assets/stereo-find-correspondences-ssd.png)
+<img src="assets/stereo-find-correspondences-ssd.png" alt="SSD Algorithm" width="300" />
 
 Sum of Square Distances `SSD`: İki pencere arasındaki farkların karelerinin topluyoruz.
 
@@ -499,7 +499,7 @@ Sum of Square Distances `SSD`: İki pencere arasındaki farkların karelerinin t
 
 Cevap: SAD farkın çok olmasına kızmıyor ancak SSD fark yükseldiği zaman çok kızıyor. SSD yöntemi genelde daha başarılı sonuçlar sağlıyor.
 
-![Cfg](assets/stereo-find-correspondences-cfg.png)
+<img src="assets/stereo-find-correspondences-cfg.png" alt="Cfg Agorithm" width="300" />
 
 `Cross Correlation`: İki penceredeki pixeller bire bire çarpılıp toplanmasıyla elde ediliyor. Sonuç ne kadar büyük olursa benzerlik o kadar fazla oluyor.
 
