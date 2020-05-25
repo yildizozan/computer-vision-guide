@@ -453,7 +453,7 @@ Bu şekilde 4 tane kenarı olan polygon oldu ve toplamları 0 olması lazım. Bu
 
 ## Algebraic Contruction
 
-![](assets/stereo-algebraic.png =x200)
+<img src="assets/stereo-algebraic.png" height="100"/>
 
 Yukarıdaki görsel de sol ve sağ kameralarınyla `p` noktasını bulmak için `P` noktasının ilgili kameranın matrisi (`M`) ile çarpmak yeterli çünkü kameranın tüm parametreleri var elimizde. Hatırlatmak gerekirse `M` matrisinin içerisinde 12 tane sayı vardı. Tüm bu denklemleri bir araya getirdikten sonra elimizde çözülmesi gereken bir lineer sistem oluyor ve çözdüğümüzde ise tek bilinmeyen olan `P` noktasını buluruz. Bu tekniğin güzel taraflarından birisi de üçüncü kamerayı eklediğimizde de çalışır. Stereoda sadece iki tane kamera kullanılmayabilinir ancak kamera sayısı en az iki tane olmalı.
 
